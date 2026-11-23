@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bruno & Kayllane — 03 . 07 . 2027</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Cormorant Garamond (Editorial Serif) & Montserrat (Clean Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- QRCode.js para geração real de QR Code Pix -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
+    <!-- Tone.js para melodia suave de piano ambiente opcional (sem URLs externas) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+    <!-- Configuração Customizada Tailwind & Estilos Editoriais -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Montserrat"', 'sans-serif'],
+                    },
+                    colors: {
+                        editorial: {
+                            black: '#0A0A0A',
+                            charcoal: '#1A1A1A',
+                            gray: '#4A4A4A',
+                            silver: '#E5E5E5',
+                            offwhite: '#F8F8F8',
+                            white: '#FFFFFF',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos base e refinamentos editoriais */
+        body {
+            background-color: #FFFFFF;
+            color: #0A0A0A;
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Tratamento editorial Preto e Branco para fotos */
+        .editorial-photo {
+            filter: grayscale(100%) contrast(1.08);
+            transition: filter 0.7s ease, transform 0.7s ease;
+        }
+        .editorial-photo:hover {
+            filter: grayscale(85%) contrast(1.12);
+            transform: scale(1.02);
+        }
+
+        /* Animação do Envelope de Abertura */
+        #envelope-overlay {
+            transition: opacity 1s cubic-bezier(0.77, 0, 0.175, 1), visibility 1s ease;
+        }
+        #envelope-overlay.opened {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .envelope-wrapper {
+            perspective: 1200px;
+        }
+
+        .envelope-flap {
+            transform-origin: top center;
+            transition: transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 30;
+        }
+
+        .envelope-wrapper.is-open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 10;
+        }
+
+        .envelope-letter {
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+        }
+
+        .envelope-wrapper.is-open .envelope-letter {
+            transform: translateY(-75px);
+        }
+
+        .wax-seal {
+            transition: transform 0.5s ease, opacity 0.4s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.45), inset 0 2px 4px rgba(255, 255, 255, 0.25);
+        }
+
+        .envelope-wrapper.is-open .wax-seal {
+            opacity: 0;
+            transform: scale(0.7);
+            pointer-events: none;
+        }
+
+        /* Animações de Reveal ao Rolar */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilo Polaroid Editorial */
+        .polaroid-card {
+            background: #FFFFFF;
+            padding: 14px 14px 38px 14px;
+            box-shadow: 0 15px 35px rgba(10, 10, 10, 0.08);
+            border: 1px solid #EAEAEA;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .polaroid-card:hover {
+            transform: translateY(-6px) rotate(0deg) !important;
+            box-shadow: 0 22px 45px rgba(10, 10, 10, 0.14);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8F8F8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0A0A0A;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-black selection:text-white">
+
+    <!-- ===================================================================== -->
+    <!-- 1. TELA DE ABERTURA: ENVELOPE INTERATIVO MINIMALISTA PRETO & BRANCO   -->
+    <!-- ===================================================================== -->
+    <div id="envelope-overlay" class="fixed inset-0 z-50 bg-[#0A0A0A] flex flex-col items-center justify-center px-4 select-none">
+        
+        <!-- Monograma BK Superior -->
+        <div class="mb-6 text-center animate-fade-in">
+            <svg class="w-24 h-24 mx-auto text-white" viewBox="0 0 200 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Monograma BK">
+                <!-- Letra B Clássica com floreio -->
+                <path d="M62 35 C22 35, 16 88, 52 93 C28 96, 25 138, 65 138 L82 138 C108 138, 114 102, 85 92 C110 82, 105 45, 76 45 L58 45 L58 138" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="50" y1="45" x2="66" y2="45" stroke="currentColor" stroke-width="3.5"/>
+                <line x1="50" y1="138" x2="68" y2="138" stroke="currentColor" stroke-width="3.5"/>
+                <!-- Letra K entrelaçada -->
+                <path d="M104 75 L104 152 M96 75 L112 75 M96 152 L112 152" stroke="currentColor" stroke-width="4.2" stroke-linecap="round"/>
+                <path d="M142 75 L104 114 L145 156 C152 163, 162 164, 168 161" stroke="currentColor" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="134" y1="75" x2="150" y2="75" stroke="currentColor" stroke-width="3.5"/>
+                <!-- Pequeno 'e' cursivo delicado -->
+                <path d="M114 96 C126 102, 146 94, 158 88 C166 84, 161 77, 155 83 C149 89, 152 101, 163 100 C170 99, 175 94, 178 90" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+            </svg>
+            <p class="font-serif italic text-neutral-300 text-lg sm:text-xl tracking-wide mt-2">
+                Temos um convite especial para você
+            </p>
+        </div>
+
+        <!-- Envelope Interativo -->
+        <div id="envelope-box" onclick="openInvitation()" class="envelope-wrapper relative w-full max-w-[350px] sm:max-w-[400px] h-[230px] sm:h-[255px] cursor-pointer group my-2">
+            
+            <!-- Corpo Traseiro do Envelope -->
+            <div class="absolute inset-0 bg-[#EFEFEF] rounded-md shadow-2xl border border-neutral-300 overflow-hidden"></div>
+
+            <!-- Cartão Interno (Convite que desliza para cima ao abrir) -->
+            <div class="envelope-letter absolute inset-x-4 top-4 bottom-4 bg-white rounded shadow-md border border-neutral-200 flex flex-col items-center justify-center p-4 text-center z-10">
+                <span class="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Save The Date</span>
+                <h2 class="font-serif text-2xl sm:text-3xl text-[#0A0A0A] mt-1">Bruno & Kayllane</h2>
+                <div class="w-8 h-[1px] bg-black my-2"></div>
+                <p class="text-xs tracking-[0.22em] text-neutral-700 font-medium">03 . 07 . 2027</p>
+            </div>
+
+            <!-- Abas Laterais e Inferior do Envelope (SVG para precisão geométrica) -->
+            <svg class="absolute inset-0 w-full h-full z-20 pointer-events-none" viewBox="0 0 400 255" preserveAspectRatio="none">
+                <!-- Aba Esquerda -->
+                <polygon points="0,0 205,135 0,255" fill="#F7F7F7" stroke="#E2E2E2" stroke-width="1"/>
+                <!-- Aba Direita -->
+                <polygon points="400,0 195,135 400,255" fill="#F2F2F2" stroke="#E2E2E2" stroke-width="1"/>
+                <!-- Aba Inferior -->
+                <polygon points="0,255 200,122 400,255" fill="#FFFFFF" stroke="#DCDCDC" stroke-width="1"/>
+            </svg>
+
+            <!-- Aba Superior (Que abre em 3D) -->
+            <div class="envelope-flap absolute top-0 inset-x-0 h-[145px] pointer-events-none">
+                <svg class="w-full h-full drop-shadow-md" viewBox="0 0 400 145" preserveAspectRatio="none">
+                    <polygon points="0,0 400,0 200,142" fill="#FAFAFA" stroke="#D8D8D8" stroke-width="1"/>
+                </svg>
+            </div>
+
+            <!-- Selo de Cera Preto Fosco com Monograma BK -->
+            <div class="wax-seal absolute left-1/2 top-[128px] -translate-x-1/2 -translate-y-1/2 z-40 w-16 h-16 rounded-full bg-[#0A0A0A] border-2 border-neutral-700 flex items-center justify-center group-hover:scale-105">
+                <div class="w-12 h-12 rounded-full border border-neutral-500/60 flex items-center justify-center">
+                    <span class="font-serif text-white text-lg tracking-tighter font-semibold">B<span class="text-sm italic font-normal">e</span>K</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botão de Ação -->
+        <div class="mt-8 text-center">
+            <button onclick="openInvitation()" class="px-8 py-3 bg-white text-[#0A0A0A] text-xs uppercase tracking-[0.25em] font-medium rounded-full hover:bg-neutral-200 transition-all duration-300 shadow-lg active:scale-95">
+                Toque para Abrir o Convite
+            </button>
+            <p class="text-[11px] text-neutral-500 tracking-widest uppercase mt-3">
+                Bruno & Kayllane • 03 de Julho de 2027
+            </p>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- CONTROLE FLUTUANTE DE ÁUDIO AMBIENTE (PIANO SUAVE GERADO VIA TONE.JS)  -->
+    <!-- ===================================================================== -->
+    <button id="music-toggle" onclick="toggleMusic()" title="Tocar / Pausar Música Ambiente" class="fixed bottom-5 right-5 z-40 bg-[#0A0A0A] text-white w-12 h-12 rounded-full shadow-xl border border-neutral-700 flex items-center justify-center hover:scale-105 transition-transform">
+        <span id="music-icon-off" class="flex items-center justify-center">
+            <!-- Ícone Som Desligado -->
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
+            </svg>
+        </span>
+        <span id="music-icon-on" class="hidden items-center justify-center">
+            <!-- Ícone Nota Musical / Som Ligado -->
+            <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+            </svg>
+        </span>
+    </button>
+
+    <!-- ===================================================================== -->
+    <!-- NAVEGAÇÃO SUPERIOR MINIMALISTA                                        -->
+    <!-- ===================================================================== -->
+    <header class="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-neutral-200/80 transition-all">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <!-- Monograma Navbar -->
+            <a href="#inicio" class="flex items-center gap-2 group">
+                <span class="font-serif text-2xl font-semibold tracking-tight text-[#0A0A0A]">B<span class="italic font-normal text-lg">e</span>K</span>
+                <span class="hidden sm:inline-block text-[10px] uppercase tracking-[0.25em] text-neutral-500 border-l border-neutral-300 pl-2">03.07.2027</span>
+            </a>
+
+            <!-- Links Desktop -->
+            <nav class="hidden md:flex items-center gap-8 text-xs uppercase tracking-[0.2em] text-neutral-700">
+                <a href="#historia" class="hover:text-black transition-colors">O Casal</a>
+                <a href="#evento" class="hover:text-black transition-colors">Cerimônia & Local</a>
+                <a href="#manual" class="hover:text-black transition-colors">Manual</a>
+                <a href="#presentes" class="hover:text-black transition-colors">Lista de Presentes</a>
+                <a href="#rsvp" class="px-5 py-2.5 bg-[#0A0A0A] text-white rounded-full hover:bg-neutral-800 transition-colors">Confirmar Presença</a>
+            </nav>
+
+            <!-- Botão Menu Mobile -->
+            <button onclick="toggleMobileMenu()" class="md:hidden p-2 text-black focus:outline-none" aria-label="Abrir menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Menu Mobile Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-neutral-200 px-6 py-5 space-y-4 text-center text-xs uppercase tracking-[0.2em]">
+            <a href="#historia" onclick="toggleMobileMenu()" class="block py-2 text-neutral-700 hover:text-black">O Casal</a>
+            <a href="#evento" onclick="toggleMobileMenu()" class="block py-2 text-neutral-700 hover:text-black">Cerimônia & Local</a>
+            <a href="#manual" onclick="toggleMobileMenu()" class="block py-2 text-neutral-700 hover:text-black">Manual dos Convidados</a>
+            <a href="#presentes" onclick="toggleMobileMenu()" class="block py-2 text-neutral-700 hover:text-black">Lista de Presentes</a>
+            <a href="#rsvp" onclick="toggleMobileMenu()" class="block py-3 bg-[#0A0A0A] text-white rounded-full">Confirmar Presença</a>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- 2. HERO SECTION EDITORIAL & CONTAGEM REGRESSIVA                       -->
+    <!-- ===================================================================== -->
+    <section id="inicio" class="relative pt-10 pb-20 sm:py-20 bg-[#F8F8F8] overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <!-- Cabeçalho Editorial -->
+            <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
+                <p class="text-[11px] sm:text-xs uppercase tracking-[0.35em] text-neutral-500 mb-4">
+                    Com a bênção de Deus e de seus pais
+                </p>
+                <h1 class="font-serif text-5xl sm:text-7xl md:text-8xl font-light text-[#0A0A0A] tracking-tight leading-none">
+                    Bruno <span class="italic font-normal text-4xl sm:text-6xl">&</span> Kayllane
+                </h1>
+                <p class="font-serif italic text-lg sm:text-2xl text-neutral-600 mt-4">
+                    Convidam você para celebrar o início da nossa eternidade
+                </p>
+            </div>
+
+            <!-- Foto Principal Editorial em Preto e Branco (foto1) -->
+            <div class="relative max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border border-neutral-200 bg-neutral-900">
+                <img 
+                    src="foto1.jpg" 
+                    onerror="if(!this.dataset.f){this.dataset.f='1';this.src='foto1.jpeg';}else if(this.dataset.f==='1'){this.dataset.f='2';this.src='foto1';}else{this.src='https://placehold.co/1200x750/111111/FFFFFF?text=Bruno+%26+Kayllane';}"
+                    alt="Bruno e Kayllane" 
+                    class="w-full h-[420px] sm:h-[580px] object-cover object-center editorial-photo"
+                >
+                <!-- Sobreposição Editorial Inferior -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-6 sm:p-12 text-white text-center">
+                    <p class="text-xs sm:text-sm uppercase tracking-[0.35em] text-neutral-300">Sábado</p>
+                    <p class="font-serif text-3xl sm:text-5xl tracking-wider mt-1">03 de Julho de 2027</p>
+                    <p class="text-xs sm:text-sm uppercase tracking-[0.25em] text-neutral-300 mt-2">Às 15h00 • Espaço Villa Mariah</p>
+                </div>
+            </div>
+
+            <!-- Contagem Regressiva em Tempo Real -->
+            <div class="max-w-3xl mx-auto mt-14 sm:mt-16 text-center reveal">
+                <p class="text-[11px] uppercase tracking-[0.3em] text-neutral-500 mb-6">
+                    Contagem Regressiva para o Grande Dia
+                </p>
+                <div class="grid grid-cols-4 gap-3 sm:gap-6">
+                    <div class="bg-white border border-neutral-200 rounded-2xl py-5 px-2 shadow-sm">
+                        <span id="cd-days" class="font-serif text-3xl sm:text-5xl font-semibold text-[#0A0A0A] block">000</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-neutral-500 mt-1 block">Dias</span>
+                    </div>
+                    <div class="bg-white border border-neutral-200 rounded-2xl py-5 px-2 shadow-sm">
+                        <span id="cd-hours" class="font-serif text-3xl sm:text-5xl font-semibold text-[#0A0A0A] block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-neutral-500 mt-1 block">Horas</span>
+                    </div>
+                    <div class="bg-white border border-neutral-200 rounded-2xl py-5 px-2 shadow-sm">
+                        <span id="cd-minutes" class="font-serif text-3xl sm:text-5xl font-semibold text-[#0A0A0A] block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-neutral-500 mt-1 block">Minutos</span>
+                    </div>
+                    <div class="bg-white border border-neutral-200 rounded-2xl py-5 px-2 shadow-sm">
+                        <span id="cd-seconds" class="font-serif text-3xl sm:text-5xl font-semibold text-[#0A0A0A] block">00</span>
+                        <span class="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-neutral-500 mt-1 block">Segundos</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. NOSSA HISTÓRIA & GALERIA EDITORIAL POLAROID                        -->
+    <!-- ===================================================================== -->
+    <section id="historia" class="py-20 sm:py-28 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <!-- Citação Bíblica / Poética -->
+            <div class="max-w-2xl mx-auto text-center mb-16 reveal">
+                <svg class="w-12 h-12 mx-auto text-black mb-4" viewBox="0 0 200 180" fill="none">
+                    <path d="M62 35 C22 35, 16 88, 52 93 C28 96, 25 138, 65 138 L82 138 C108 138, 114 102, 85 92 C110 82, 105 45, 76 45 L58 45 L58 138" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+                    <path d="M104 75 L104 152 M142 75 L104 114 L145 156" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/>
+                    <path d="M114 96 C126 102, 146 94, 158 88 C166 84, 161 77, 155 83 C149 89, 152 101, 163 100" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <blockquote class="font-serif italic text-2xl sm:text-3xl text-[#0A0A0A] leading-relaxed">
+                    “Assim, eles já não são dois, mas sim uma só carne. Portanto, o que Deus uniu, ninguém o separe.”
+                </blockquote>
+                <p class="text-xs uppercase tracking-[0.25em] text-neutral-500 mt-3">Mateus 19:6</p>
+                
+                <div class="w-12 h-[1px] bg-neutral-300 mx-auto my-8"></div>
+
+                <h2 class="font-serif text-4xl sm:text-5xl text-[#0A0A0A] mb-4">O Nosso Sim</h2>
+                <p class="text-sm sm:text-base text-neutral-600 font-light leading-relaxed">
+                    Cada sorriso, cada conversa e cada plano construído lado a lado nos trouxeram até este momento. 
+                    Não poderíamos imaginar viver o dia mais importante das nossas vidas sem a presença e o carinho das pessoas que fazem parte da nossa história.
+                </p>
+            </div>
+
+            <!-- Galeria Estilo Polaroid Editorial (foto2, foto3 e foto4) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10 items-center max-w-5xl mx-auto reveal">
+                
+                <!-- Polaroid 1 (foto2) -->
+                <div class="polaroid-card rounded-lg md:-rotate-2">
+                    <div class="overflow-hidden rounded bg-neutral-100 aspect-[3/4]">
+                        <img 
+                            src="foto2.jpg" 
+                            onerror="if(!this.dataset.f){this.dataset.f='1';this.src='foto2.jpeg';}else if(this.dataset.f==='1'){this.dataset.f='2';this.src='foto2';}else{this.src='https://placehold.co/600x800/1A1A1A/FFFFFF?text=Nossos+Momentos';}"
+                            alt="Momentos Bruno e Kayllane 1" 
+                            class="w-full h-full object-cover editorial-photo"
+                        >
+                    </div>
+                    <p class="font-serif italic text-center text-lg text-neutral-700 mt-4">Onde tudo começou...</p>
+                </div>
+
+                <!-- Polaroid 2 (Destaque Central - foto3) -->
+                <div class="polaroid-card rounded-lg md:scale-105 z-10">
+                    <div class="overflow-hidden rounded bg-neutral-100 aspect-[3/4]">
+                        <img 
+                            src="foto3.jpg" 
+                            onerror="if(!this.dataset.f){this.dataset.f='1';this.src='foto3.jpeg';}else if(this.dataset.f==='1'){this.dataset.f='2';this.src='foto3';}else{this.src='https://placehold.co/600x800/0A0A0A/FFFFFF?text=Para+Sempre';}"
+                            alt="Momentos Bruno e Kayllane 2" 
+                            class="w-full h-full object-cover editorial-photo"
+                        >
+                    </div>
+                    <p class="font-serif italic text-center text-xl text-[#0A0A0A] mt-4">O nosso para sempre</p>
+                </div>
+
+                <!-- Polaroid 3 (foto4) -->
+                <div class="polaroid-card rounded-lg md:rotate-2">
+                    <div class="overflow-hidden rounded bg-neutral-100 aspect-[3/4]">
+                        <img 
+                            src="foto4.jpg" 
+                            onerror="if(!this.dataset.f){this.dataset.f='1';this.src='foto4.jpeg';}else if(this.dataset.f==='1'){this.dataset.f='2';this.src='foto4';}else{this.src='https://placehold.co/600x800/262626/FFFFFF?text=03.07.2027';}"
+                            alt="Momentos Bruno e Kayllane 3" 
+                            class="w-full h-full object-cover editorial-photo"
+                        >
+                    </div>
+                    <p class="font-serif italic text-center text-lg text-neutral-700 mt-4">03 . 07 . 2027</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. CERIMÔNIA, RECEPÇÃO & LOCALIZAÇÃO                                  -->
+    <!-- ===================================================================== -->
+    <section id="evento" class="py-20 sm:py-28 bg-[#0A0A0A] text-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-center mb-16 reveal">
+                <p class="text-xs uppercase tracking-[0.3em] text-neutral-400">Quando & Onde</p>
+                <h2 class="font-serif text-4xl sm:text-6xl font-light mt-2">Cerimônia & Recepção</h2>
+                <div class="w-16 h-[1px] bg-neutral-700 mx-auto mt-6"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch reveal">
+                
+                <!-- Card Data & Horário -->
+                <div class="border border-neutral-800 bg-[#121212] rounded-2xl p-8 sm:p-10 flex flex-col justify-between text-center">
+                    <div>
+                        <div class="w-12 h-12 rounded-full border border-neutral-700 flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs uppercase tracking-[0.25em] text-neutral-400">Data & Horário</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl mt-2">03 de Julho de 2027</h3>
+                        <p class="text-sm text-neutral-300 mt-3 font-light">Sábado • Recepção inicia às <strong class="font-medium text-white">15h00</strong></p>
+                        <p class="text-xs text-neutral-400 mt-4 leading-relaxed">
+                            Pedimos gentilmente pontualidade para que vocês não percam nenhum instante da nossa entrada e cerimônia ao entardecer.
+                        </p>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-neutral-800">
+                        <button onclick="downloadCalendarICS()" class="w-full py-3.5 px-6 bg-white text-[#0A0A0A] text-xs uppercase tracking-[0.2em] font-medium rounded-full hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5"/>
+                            </svg>
+                            Salvar na Agenda
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card Localização -->
+                <div class="border border-neutral-800 bg-[#121212] rounded-2xl p-8 sm:p-10 flex flex-col justify-between text-center">
+                    <div>
+                        <div class="w-12 h-12 rounded-full border border-neutral-700 flex items-center justify-center mx-auto mb-6">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xs uppercase tracking-[0.25em] text-neutral-400">O Espaço</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl mt-2">Espaço Villa Mariah</h3>
+                        <p class="text-sm text-neutral-300 mt-3 font-light leading-relaxed">
+                            Estrada Abias da Silva, 49, R. Particular, 1786-2110<br>
+                            Itaquaciara, Itapecerica da Serra - SP<br>
+                            CEP: 06874-260
+                        </p>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-neutral-800 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="https://www.google.com/maps/search/?api=1&query=Espa%C3%A7o+Villa+Mariah+Estrada+Abias+da+Silva+49+Itapecerica+da+Serra+SP" target="_blank" rel="noopener noreferrer" class="py-3.5 px-4 bg-white text-[#0A0A0A] text-[11px] uppercase tracking-[0.18em] font-medium rounded-full hover:bg-neutral-200 transition-colors flex items-center justify-center gap-2">
+                            Google Maps
+                        </a>
+                        <a href="https://waze.com/ul?q=Espa%C3%A7o%20Villa%20Mariah%20Itapecerica%20da%20Serra&navigate=yes" target="_blank" rel="noopener noreferrer" class="py-3.5 px-4 border border-neutral-600 text-white text-[11px] uppercase tracking-[0.18em] font-medium rounded-full hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2">
+                            Abrir no Waze
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. MANUAL DOS CONVIDADOS & DRESS CODE                                 -->
+    <!-- ===================================================================== -->
+    <section id="manual" class="py-20 sm:py-24 bg-[#F8F8F8] border-b border-neutral-200">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 reveal">
+            <div class="text-center mb-14">
+                <p class="text-xs uppercase tracking-[0.3em] text-neutral-500">Orientações Importantes</p>
+                <h2 class="font-serif text-4xl sm:text-5xl text-[#0A0A0A] mt-2">Manual dos Convidados</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Item 1 -->
+                <div class="bg-white p-7 rounded-2xl border border-neutral-200/90 text-center shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-black font-serif text-lg">01</div>
+                    <h3 class="font-serif text-2xl text-[#0A0A0A] mb-2">Dress Code</h3>
+                    <p class="text-xs text-neutral-600 leading-relaxed">
+                        <strong>Traje Social / Esporte Fino.</strong> Queremos vocês elegantes e confortáveis para celebrar conosco.
+                    </p>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="bg-white p-7 rounded-2xl border border-neutral-200/90 text-center shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-black font-serif text-lg">02</div>
+                    <h3 class="font-serif text-2xl text-[#0A0A0A] mb-2">Branco é da Noiva</h3>
+                    <p class="text-xs text-neutral-600 leading-relaxed">
+                        Pedimos com carinho que evitem roupas brancas, off-white ou marfim — essa cor está reservada para a Kayllane!
+                    </p>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="bg-white p-7 rounded-2xl border border-neutral-200/90 text-center shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-black font-serif text-lg">03</div>
+                    <h3 class="font-serif text-2xl text-[#0A0A0A] mb-2">Pontualidade</h3>
+                    <p class="text-xs text-neutral-600 leading-relaxed">
+                        A recepção inicia às <strong>15h00</strong>. Chegue com alguns minutos de antecedência para se acomodar tranquilamente.
+                    </p>
+                </div>
+
+                <!-- Item 4 -->
+                <div class="bg-white p-7 rounded-2xl border border-neutral-200/90 text-center shadow-sm">
+                    <div class="w-10 h-10 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-4 text-black font-serif text-lg">04</div>
+                    <h3 class="font-serif text-2xl text-[#0A0A0A] mb-2">Confirmação</h3>
+                    <p class="text-xs text-neutral-600 leading-relaxed">
+                        Convite individual e intransferível. Por favor, confirme sua presença até <strong>30 dias</strong> antes do evento.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. LISTA DE PRESENTES INTERATIVA COM GERADOR REAL DE PIX (BR CODE)    -->
+    <!-- ===================================================================== -->
+    <section id="presentes" class="py-20 sm:py-28 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+                <p class="text-xs uppercase tracking-[0.3em] text-neutral-500">Mimos & Lua de Mel</p>
+                <h2 class="font-serif text-4xl sm:text-6xl text-[#0A0A0A] mt-2">Lista de Presentes</h2>
+                <p class="text-sm text-neutral-600 font-light mt-4 leading-relaxed">
+                    Sua presença é o nosso maior presente! Mas se desejar nos abençoar com um mimo para nossa casa nova ou lua de mel, escolha uma das opções abaixo. O valor vai diretamente via Pix para os noivos, sem taxas.
+                </p>
+            </div>
+
+            <!-- Filtros de Categoria -->
+            <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-12 reveal">
+                <button onclick="filterGifts('todos', this)" class="gift-filter-btn active px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] bg-[#0A0A0A] text-white transition-all">
+                    Todos
+                </button>
+                <button onclick="filterGifts('lua-de-mel', this)" class="gift-filter-btn px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-all">
+                    Lua de Mel
+                </button>
+                <button onclick="filterGifts('casa', this)" class="gift-filter-btn px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-all">
+                    Casa Nova
+                </button>
+                <button onclick="filterGifts('brincadeiras', this)" class="gift-filter-btn px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.18em] bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-all">
+                    Brincadeiras
+                </button>
+            </div>
+
+            <!-- Grid de Presentes (Renderizado dinamicamente via JS) -->
+            <div id="gifts-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 reveal">
+                <!-- Preenchido automaticamente pelo script -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 7. CONFIRMAÇÃO DE PRESENÇA (RSVP)                                     -->
+    <!-- ===================================================================== -->
+    <section id="rsvp" class="py-20 sm:py-28 bg-[#F8F8F8] border-t border-neutral-200">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 reveal">
+            
+            <div class="bg-white rounded-3xl p-8 sm:p-12 shadow-xl border border-neutral-200/80">
+                <div class="text-center mb-10">
+                    <span class="font-serif italic text-xl text-neutral-500">R.S.V.P.</span>
+                    <h2 class="font-serif text-4xl sm:text-5xl text-[#0A0A0A] mt-1">Confirme sua Presença</h2>
+                    <p class="text-xs sm:text-sm text-neutral-500 mt-3 font-light">
+                        Preencha os dados abaixo para registrar sua resposta na lista oficial dos noivos.
+                    </p>
+                </div>
+
+                <form id="rsvp-form" onsubmit="handleRSVPSubmit(event)" class="space-y-6">
+                    <!-- Nome Completo -->
+                    <div>
+                        <label for="rsvp-name" class="block text-xs uppercase tracking-[0.18em] text-neutral-700 mb-2">Seu Nome Completo *</label>
+                        <input type="text" id="rsvp-name" required placeholder="Ex: Maria Clara Oliveira" class="w-full px-4 py-3.5 rounded-xl border border-neutral-300 focus:border-black focus:outline-none text-sm bg-neutral-50/50">
+                    </div>
+
+                    <!-- WhatsApp / Telefone -->
+                    <div>
+                        <label for="rsvp-phone" class="block text-xs uppercase tracking-[0.18em] text-neutral-700 mb-2">WhatsApp para Contato *</label>
+                        <input type="tel" id="rsvp-phone" required placeholder="(11) 99999-9999" class="w-full px-4 py-3.5 rounded-xl border border-neutral-300 focus:border-black focus:outline-none text-sm bg-neutral-50/50">
+                    </div>
+
+                    <!-- Você vai comparecer? -->
+                    <div>
+                        <label class="block text-xs uppercase tracking-[0.18em] text-neutral-700 mb-2">Você poderá comparecer? *</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="cursor-pointer">
+                                <input type="radio" name="rsvp-status" value="Confirmado" checked onchange="toggleCompanionsField(true)" class="peer sr-only">
+                                <div class="p-3.5 rounded-xl border border-neutral-300 text-center text-xs uppercase tracking-[0.15em] peer-checked:bg-[#0A0A0A] peer-checked:text-white peer-checked:border-[#0A0A0A] transition-all">
+                                    Sim, com certeza!
+                                </div>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input type="radio" name="rsvp-status" value="Recusado" onchange="toggleCompanionsField(false)" class="peer sr-only">
+                                <div class="p-3.5 rounded-xl border border-neutral-300 text-center text-xs uppercase tracking-[0.15em] peer-checked:bg-[#0A0A0A] peer-checked:text-white peer-checked:border-[#0A0A0A] transition-all">
+                                    Infelizmente não irei
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Acompanhantes -->
+                    <div id="companions-container" class="space-y-4">
+                        <div>
+                            <label for="rsvp-companions-count" class="block text-xs uppercase tracking-[0.18em] text-neutral-700 mb-2">Número de Acompanhantes (do seu convite)</label>
+                            <select id="rsvp-companions-count" class="w-full px-4 py-3.5 rounded-xl border border-neutral-300 focus:border-black focus:outline-none text-sm bg-neutral-50/50">
+                                <option value="0">Vou sozinho(a) — 0 acompanhantes</option>
+                                <option value="1">+ 1 acompanhante</option>
+                                <option value="2">+ 2 acompanhantes</option>
+                                <option value="3">+ 3 acompanhantes</option>
+                                <option value="4">+ 4 acompanhantes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="rsvp-companions-names" class="block text-xs uppercase tracking-[0.18em] text-neutral-700 mb-2">Nome(s) do(s) Acompanhante(s)</label>
+                            <input type="text" id="rsvp-companions-names" placeholder="Ex: João Oliveira, Ana Oliveira" class="w-full px-4 py-3.5 rounded-xl border border-neutral-300 focus:border-black focus:outline-none text-sm bg-neutral-50/50">
+                        </div>
+                    </div>
+
+                    <!-- Recado para os noivos -->
+                    <div>
+                        <label for="rsvp-message" class="block text-xs uppercase tracking-[0.18em] text-neutral-700 mb-2">Mensagem aos Noivos (Opcional)</label>
+                        <textarea id="rsvp-message" rows="3" placeholder="Deixe uma mensagem de carinho para Bruno e Kayllane..." class="w-full px-4 py-3.5 rounded-xl border border-neutral-300 focus:border-black focus:outline-none text-sm bg-neutral-50/50"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-[#0A0A0A] text-white text-xs uppercase tracking-[0.25em] font-medium rounded-full hover:bg-neutral-800 transition-all shadow-lg active:scale-[0.99]">
+                        Enviar Confirmação
+                    </button>
+                </form>
+
+                <!-- Feedback de Sucesso após envio -->
+                <div id="rsvp-success-box" class="hidden text-center py-8 space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-[#0A0A0A] text-white flex items-center justify-center mx-auto">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-3xl text-[#0A0A0A]">Resposta Registrada!</h3>
+                    <p id="rsvp-success-text" class="text-sm text-neutral-600 max-w-md mx-auto leading-relaxed"></p>
+                    <button onclick="resetRSVPForm()" class="mt-4 px-6 py-2.5 border border-neutral-300 rounded-full text-xs uppercase tracking-[0.18em] hover:bg-neutral-100">
+                        Enviar outra resposta
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- RODAPÉ & ACESSO À ÁREA RESTRITA DA NOIVA                              -->
+    <!-- ===================================================================== -->
+    <footer class="bg-[#0A0A0A] text-white py-14 text-center">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-serif text-4xl">Bruno <span class="italic text-2xl">&</span> Kayllane</p>
+            <p class="text-xs uppercase tracking-[0.3em] text-neutral-400 mt-2">03 . 07 . 2027 • Espaço Villa Mariah</p>
+            
+            <div class="w-10 h-[1px] bg-neutral-800 mx-auto my-8"></div>
+
+            <button onclick="openBrideModal()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-neutral-800 text-[11px] uppercase tracking-[0.2em] text-neutral-400 hover:text-white hover:border-neutral-600 transition-colors">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"/>
+                </svg>
+                Área Restrita dos Noivos
+            </button>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 1: CHECKOUT PIX DINÂMICO (GERAÇÃO REAL DE BR CODE + QR CODE)    -->
+    <!-- ===================================================================== -->
+    <div id="pix-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 relative shadow-2xl border border-neutral-200 my-auto">
+            
+            <!-- Botão Fechar -->
+            <button onclick="closePixModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-black hover:text-white transition-colors">
+                ✕
+            </button>
+
+            <div class="text-center">
+                <span class="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Presente via Pix</span>
+                <h3 id="pix-gift-title" class="font-serif text-2xl sm:text-3xl text-[#0A0A0A] mt-1 leading-tight">Título do Presente</h3>
+                
+                <!-- Campo editável caso seja "Presente Livre" -->
+                <div id="pix-custom-amount-box" class="hidden mt-4">
+                    <label class="block text-[11px] uppercase tracking-wider text-neutral-500 mb-1">Digite o valor desejado (R$):</label>
+                    <div class="flex items-center justify-center gap-2">
+                        <input type="number" id="pix-custom-input" min="1" step="1" value="150" oninput="updateCustomPixAmount()" class="w-36 text-center font-serif text-2xl font-semibold border-b-2 border-black focus:outline-none py-1">
+                    </div>
+                </div>
+
+                <p id="pix-gift-price" class="font-serif text-3xl font-semibold text-[#0A0A0A] mt-2">R$ 250,00</p>
+            </div>
+
+            <!-- Área do QR Code Gerado -->
+            <div class="my-6 flex flex-col items-center justify-center bg-[#F8F8F8] p-5 rounded-2xl border border-neutral-200">
+                <div id="qrcode-container" class="bg-white p-3 rounded-xl shadow-sm border border-neutral-200"></div>
+                <p class="text-[11px] text-neutral-500 mt-3 text-center">
+                    Abra o app do seu banco e aponte a câmera para o QR Code ou use o botão Copia e Cola abaixo.
+                </p>
+            </div>
+
+            <!-- Pix Copia e Cola -->
+            <div class="space-y-2">
+                <label class="block text-[10px] uppercase tracking-[0.2em] text-neutral-500">Código Pix Copia e Cola (Chave: 11942543277)</label>
+                <div class="flex items-center gap-2">
+                    <input type="text" id="pix-copy-paste-code" readonly class="w-full px-3 py-2.5 text-xs bg-neutral-100 border border-neutral-300 rounded-xl text-neutral-700 font-mono truncate">
+                    <button onclick="copyPixCode()" id="btn-copy-pix" class="shrink-0 px-4 py-2.5 bg-[#0A0A0A] text-white text-xs uppercase tracking-wider rounded-xl hover:bg-neutral-800 transition-colors">
+                        Copiar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Registrar Aviso de Presente aos Noivos -->
+            <div class="mt-6 pt-5 border-t border-neutral-200 space-y-3">
+                <p class="text-xs font-medium text-neutral-800">Já realizou o Pix? Avise o Bruno e a Kayllane:</p>
+                <input type="text" id="pix-sender-name" placeholder="Seu nome" class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs focus:border-black focus:outline-none">
+                <input type="text" id="pix-sender-note" placeholder="Deixe um recadinho carinhoso..." class="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-xs focus:border-black focus:outline-none">
+                <button onclick="confirmGiftNotification()" class="w-full py-3 bg-[#0A0A0A] text-white text-xs uppercase tracking-[0.2em] rounded-full hover:bg-neutral-800 transition-colors">
+                    Confirmar Envio do Presente
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL 2: PAINEL ADMINISTRATIVO DA NOIVA (LOGIN + DASHBOARD COMPLETO)  -->
+    <!-- ===================================================================== -->
+    <div id="bride-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-4xl w-full p-6 sm:p-10 relative shadow-2xl border border-neutral-200 my-auto max-h-[92vh] overflow-y-auto">
+            
+            <button onclick="closeBrideModal()" class="absolute top-5 right-5 w-9 h-9 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-600 hover:bg-black hover:text-white transition-colors">
+                ✕
+            </button>
+
+            <!-- TELA DE LOGIN DOS NOIVOS -->
+            <div id="bride-login-view" class="max-w-sm mx-auto py-8 text-center">
+                <span class="font-serif text-3xl font-semibold">B<span class="italic font-normal text-xl">e</span>K</span>
+                <h3 class="font-serif text-3xl text-[#0A0A0A] mt-2">Painel dos Noivos</h3>
+                <p class="text-xs text-neutral-500 mt-2">
+                    Acesso exclusivo para gerenciar convidados confirmados, pendentes e presentes recebidos.
+                </p>
+
+                <form onsubmit="handleBrideLogin(event)" class="mt-6 space-y-4">
+                    <input type="password" id="bride-password" placeholder="Digite a senha de acesso" required class="w-full px-4 py-3.5 rounded-xl border border-neutral-300 text-center text-sm focus:border-black focus:outline-none">
+                    <p class="text-[11px] text-neutral-400">Senha padrão de demonstração: <strong class="text-neutral-700">2027</strong></p>
+                    <p id="bride-login-error" class="hidden text-xs text-red-600">Senha incorreta. Tente novamente.</p>
+                    <button type="submit" class="w-full py-3.5 bg-[#0A0A0A] text-white text-xs uppercase tracking-[0.2em] rounded-full hover:bg-neutral-800">
+                        Acessar Painel
+                    </button>
+                </form>
+            </div>
+
+            <!-- DASHBOARD COMPLETO DA NOIVA -->
+            <div id="bride-dashboard-view" class="hidden space-y-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-200 pb-5">
+                    <div>
+                        <span class="text-[10px] uppercase tracking-[0.25em] text-neutral-500">Gestão do Casamento</span>
+                        <h3 class="font-serif text-3xl sm:text-4xl text-[#0A0A0A]">Painel Bruno & Kayllane</h3>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="exportGuestsCSV()" class="px-4 py-2.5 bg-[#0A0A0A] text-white text-[11px] uppercase tracking-wider rounded-full hover:bg-neutral-800">
+                            Exportar Lista (CSV)
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cards de Resumo (KPIs) -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+                    <div class="bg-[#F8F8F8] p-4 rounded-2xl border border-neutral-200">
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-500">Confirmados (Pessoas)</span>
+                        <p id="stat-confirmed" class="font-serif text-3xl font-semibold text-[#0A0A0A] mt-1">0</p>
+                    </div>
+                    <div class="bg-[#F8F8F8] p-4 rounded-2xl border border-neutral-200">
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-500">Aguardando Resposta</span>
+                        <p id="stat-pending" class="font-serif text-3xl font-semibold text-amber-700 mt-1">0</p>
+                    </div>
+                    <div class="bg-[#F8F8F8] p-4 rounded-2xl border border-neutral-200">
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-500">Não Poderão Ir</span>
+                        <p id="stat-declined" class="font-serif text-3xl font-semibold text-neutral-500 mt-1">0</p>
+                    </div>
+                    <div class="bg-[#F8F8F8] p-4 rounded-2xl border border-neutral-200">
+                        <span class="text-[10px] uppercase tracking-wider text-neutral-500">Presentes via Pix</span>
+                        <p id="stat-gifts-total" class="font-serif text-2xl sm:text-3xl font-semibold text-emerald-800 mt-1">R$ 0</p>
+                    </div>
+                </div>
+
+                <!-- Adicionar Convidado na Pré-Lista (Para controlar quem ainda não respondeu) -->
+                <div class="bg-[#F8F8F8] p-5 rounded-2xl border border-neutral-200">
+                    <h4 class="text-xs uppercase tracking-[0.18em] font-semibold text-neutral-800 mb-3">
+                        Adicionar Convidado na Pré-Lista (Controle de Pendentes)
+                    </h4>
+                    <form onsubmit="addExpectedGuest(event)" class="flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="new-expected-name" required placeholder="Nome completo do convidado" class="flex-1 px-4 py-2.5 rounded-xl border border-neutral-300 text-xs bg-white focus:outline-none focus:border-black">
+                        <input type="text" id="new-expected-group" placeholder="Grupo (ex: Família Noiva, Padrinhos)" class="sm:w-56 px-4 py-2.5 rounded-xl border border-neutral-300 text-xs bg-white focus:outline-none focus:border-black">
+                        <button type="submit" class="px-6 py-2.5 bg-[#0A0A0A] text-white text-xs uppercase tracking-wider rounded-xl hover:bg-neutral-800">
+                            + Adicionar
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Abas do Painel -->
+                <div>
+                    <div class="flex border-b border-neutral-200 gap-6 text-xs uppercase tracking-[0.18em] mb-4">
+                        <button onclick="switchBrideTab('guests', this)" class="bride-tab-btn pb-3 border-b-2 border-black font-semibold text-black">
+                            Lista de Convidados
+                        </button>
+                        <button onclick="switchBrideTab('gifts', this)" class="bride-tab-btn pb-3 border-b-2 border-transparent text-neutral-500 hover:text-black">
+                            Presentes & Recados Pix
+                        </button>
+                    </div>
+
+                    <!-- Aba 1: Tabela de Convidados -->
+                    <div id="tab-guests-content" class="space-y-4">
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="renderBrideGuestsTable('todos')" class="px-3 py-1.5 rounded-full text-[11px] bg-neutral-200 hover:bg-black hover:text-white transition-colors">Todos</button>
+                            <button onclick="renderBrideGuestsTable('Confirmado')" class="px-3 py-1.5 rounded-full text-[11px] bg-emerald-100 text-emerald-900 hover:bg-emerald-800 hover:text-white transition-colors">Confirmados</button>
+                            <button onclick="renderBrideGuestsTable('Pendente')" class="px-3 py-1.5 rounded-full text-[11px] bg-amber-100 text-amber-900 hover:bg-amber-700 hover:text-white transition-colors">Não Confirmaram (Pendentes)</button>
+                            <button onclick="renderBrideGuestsTable('Recusado')" class="px-3 py-1.5 rounded-full text-[11px] bg-neutral-100 text-neutral-700 hover:bg-neutral-700 hover:text-white transition-colors">Recusados</button>
+                        </div>
+
+                        <div class="overflow-x-auto border border-neutral-200 rounded-2xl">
+                            <table class="w-full text-left border-collapse text-xs">
+                                <thead>
+                                    <tr class="bg-neutral-100 border-b border-neutral-200 uppercase tracking-wider text-[10px] text-neutral-600">
+                                        <th class="p-3.5">Convidado</th>
+                                        <th class="p-3.5">Status</th>
+                                        <th class="p-3.5">Acompanhantes</th>
+                                        <th class="p-3.5">Contato / Obs.</th>
+                                        <th class="p-3.5 text-right">Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bride-guests-tbody" class="divide-y divide-neutral-200">
+                                    <!-- Renderizado via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Aba 2: Lista de Presentes Recebidos -->
+                    <div id="tab-gifts-content" class="hidden space-y-3">
+                        <div id="bride-gifts-list" class="space-y-3">
+                            <!-- Renderizado via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- TOAST DE NOTIFICAÇÃO ELEGANTE (SUBSTITUI ALERT)                       -->
+    <!-- ===================================================================== -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-[#0A0A0A] text-white px-6 py-3.5 rounded-full shadow-2xl border border-neutral-700 text-xs tracking-wider uppercase opacity-0 pointer-events-none transition-all duration-300">
+        Mensagem aqui
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- JAVASCRIPT: LÓGICA COMPLETA DO SITE, PIX EMV/CRC16, RSVP E PAINEL     -->
+    <!-- ===================================================================== -->
+    <script>
+        /* =================================================================
+           1. CONFIGURAÇÕES GERAIS & CHAVE PIX DOS NOIVOS
+           ================================================================= */
+        const WEDDING_CONFIG = {
+            couple: "Bruno & Kayllane",
+            dateISO: "2027-07-03T15:00:00-03:00",
+            pixKey: "+5511942543277", // Formato oficial E.164 para chave telefone no padrão Pix BR Code
+            pixMerchantName: "BRUNO E KAYLLANE",
+            pixMerchantCity: "SAO PAULO",
+            bridePassword: "2027",
+            // OPCIONAL: Cole aqui a URL do seu Google Apps Script para salvar na nuvem (Google Sheets)
+            googleSheetsWebhookURL: "" 
+        };
+
+        /* =================================================================
+           2. CATÁLOGO DE PRESENTES (CASA NOVA, LUA DE MEL E BRINCADEIRAS)
+           ================================================================= */
+        const GIFTS_CATALOG = [
+            {
+                id: 1,
+                title: "Cota Lua de Mel: Passagens & Aventuras",
+                category: "lua-de-mel",
+                categoryLabel: "Lua de Mel",
+                price: 250.00,
+                description: "Ajude os noivos a decolarem rumo aos primeiros dias de casados!",
+                icon: "✈️"
+            },
+            {
+                id: 2,
+                title: "Jantar Romântico à Luz de Velas",
+                category: "lua-de-mel",
+                categoryLabel: "Lua de Mel",
+                price: 180.00,
+                description: "Um jantar inesquecível para celebrarmos o início da nossa vida a dois.",
+                icon: "🥂"
+            },
+            {
+                id: 3,
+                title: "Cafeteira Espresso para os Domingos",
+                category: "casa",
+                categoryLabel: "Casa Nova",
+                price: 320.00,
+                description: "Para garantir o bom humor da Kayllane e do Bruno logo pela manhã.",
+                icon: "☕"
+            },
+            {
+                id: 4,
+                title: "Jogo de Panelas Inox (Chef Bruno)",
+                category: "casa",
+                categoryLabel: "Casa Nova",
+                price: 450.00,
+                description: "Incentivo oficial para o noivo preparar jantares especiais.",
+                icon: "🍳"
+            },
+            {
+                id: 5,
+                title: "Alvará: 1 Ano de Paciência para a Noiva",
+                category: "brincadeiras",
+                categoryLabel: "Brincadeira",
+                price: 120.00,
+                description: "Válido para decisões de decoração, reformas e escolhas de filmes.",
+                icon: "👑"
+            },
+            {
+                id: 6,
+                title: "Taxa para o Noivo Não Chorar no Altar",
+                category: "brincadeiras",
+                categoryLabel: "Brincadeira",
+                price: 150.00,
+                description: "Inclui lenços extras e apoio emocional dos padrinhos na cerimônia.",
+                icon: "🥹"
+            },
+            {
+                id: 7,
+                title: "Upgrade Suíte Vista Mar na Lua de Mel",
+                category: "lua-de-mel",
+                categoryLabel: "Lua de Mel",
+                price: 380.00,
+                description: "Para acordarmos com a vista mais linda na nossa viagem de núpcias.",
+                icon: "🌊"
+            },
+            {
+                id: 8,
+                title: "Presente Livre (Você Escolhe o Valor)",
+                category: "brincadeiras",
+                categoryLabel: "Valor Livre",
+                price: 150.00,
+                isCustom: true,
+                description: "Escolha qualquer valor de coração para abençoar o nosso novo lar.",
+                icon: "🤍"
+            }
+        ];
+
+        /* =================================================================
+           3. ESTADO & PERSISTÊNCIA (LOCALSTORAGE COM PRÉ-LISTA INICIAL)
+           ================================================================= */
+        const STORAGE_KEY_GUESTS = "bk_wedding_guests_v1";
+        const STORAGE_KEY_GIFTS = "bk_wedding_gifts_v1";
+
+        // Dados iniciais de exemplo para demonstrar o controle de "Pendentes" x "Confirmados"
+        const DEFAULT_GUESTS = [
+            { id: "g1", name: "Família Silva (Pais do Noivo)", phone: "(11) 98888-1111", status: "Confirmado", companionsCount: 2, companionsNames: "Carlos e Helena", message: "Estaremos na primeira fila abençoando vocês!", group: "Família" },
+            { id: "g2", name: "Família Santos (Pais da Noiva)", phone: "(11) 97777-2222", status: "Confirmado", companionsCount: 2, companionsNames: "Roberto e Patrícia", message: "Dia mais feliz das nossas vidas!", group: "Família" },
+            { id: "g3", name: "Lucas Mendes & Fernanda", phone: "(11) 96666-3333", status: "Pendente", companionsCount: 1, companionsNames: "", message: "", group: "Padrinhos" },
+            { id: "g4", name: "Mariana Costa", phone: "(11) 95555-4444", status: "Pendente", companionsCount: 0, companionsNames: "", message: "", group: "Amigos" },
+            { id: "g5", name: "Gabriel Almeida", phone: "(11) 94444-5555", status: "Pendente", companionsCount: 1, companionsNames: "", message: "", group: "Amigos" }
+        ];
+
+        function loadGuests() {
+            const raw = localStorage.getItem(STORAGE_KEY_GUESTS);
+            if (!raw) {
+                localStorage.setItem(STORAGE_KEY_GUESTS, JSON.stringify(DEFAULT_GUESTS));
+                return [...DEFAULT_GUESTS];
+            }
+            return JSON.parse(raw);
+        }
+
+        function saveGuests(list) {
+            localStorage.setItem(STORAGE_KEY_GUESTS, JSON.stringify(list));
+        }
+
+        function loadReceivedGifts() {
+            const raw = localStorage.getItem(STORAGE_KEY_GIFTS);
+            return raw ? JSON.parse(raw) : [];
+        }
+
+        function saveReceivedGifts(list) {
+            localStorage.setItem(STORAGE_KEY_GIFTS, JSON.stringify(list));
+        }
+
+        /* =================================================================
+           4. ANIMAÇÃO DO ENVELOPE & MÚSICA AMBIENTE (TONE.JS)
+           ================================================================= */
+        let isEnvelopeOpened = false;
+
+        function openInvitation() {
+            if (isEnvelopeOpened) return;
+            isEnvelopeOpened = true;
+
+            const box = document.getElementById("envelope-box");
+            const overlay = document.getElementById("envelope-overlay");
+            
+            box.classList.add("is-open");
+
+            setTimeout(() => {
+                overlay.classList.add("opened");
+                triggerRevealAnimations();
+            }, 950);
+        }
+
+        // Melodia suave de piano sintetizado via Tone.js (sem dependências externas)
+        let isMusicPlaying = false;
+        let pianoLoop = null;
+        let synth = null;
+
+        async function toggleMusic() {
+            const iconOff = document.getElementById("music-icon-off");
+            const iconOn = document.getElementById("music-icon-on");
+
+            if (!isMusicPlaying) {
+                await Tone.start();
+                if (!synth) {
+                    synth = new Tone.PolySynth(Tone.Synth, {
+                        oscillator: { type: "sine" },
+                        envelope: { attack: 0.4, decay: 0.8, sustain: 0.4, release: 2.2 },
+                        volume: -14
+                    }).toDestination();
+
+                    const notes = ["C4", "E4", "G4", "B4", "A4", "E4", "F4", "A4", "G4", "D4"];
+                    let step = 0;
+                    pianoLoop = new Tone.Loop((time) => {
+                        synth.triggerAttackRelease(notes[step % notes.length], "2n", time);
+                        step++;
+                    }, "1.4s");
+                }
+                Tone.Transport.start();
+                pianoLoop.start(0);
+                isMusicPlaying = true;
+                iconOff.classList.add("hidden");
+                iconOn.classList.remove("hidden");
+                iconOn.classList.add("flex");
+                showToast("Música ambiente ativada");
+            } else {
+                Tone.Transport.pause();
+                isMusicPlaying = false;
+                iconOn.classList.add("hidden");
+                iconOn.classList.remove("flex");
+                iconOff.classList.remove("hidden");
+                showToast("Música pausada");
+            }
+        }
+
+        /* =================================================================
+           5. CONTAGEM REGRESSIVA EM TEMPO REAL (03/07/2027 15:00)
+           ================================================================= */
+        function updateCountdown() {
+            const target = new Date(WEDDING_CONFIG.dateISO).getTime();
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById("cd-days").textContent = "000";
+                document.getElementById("cd-hours").textContent = "00";
+                document.getElementById("cd-minutes").textContent = "00";
+                document.getElementById("cd-seconds").textContent = "00";
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("cd-days").textContent = String(days).padStart(3, "0");
+            document.getElementById("cd-hours").textContent = String(hours).padStart(2, "0");
+            document.getElementById("cd-minutes").textContent = String(minutes).padStart(2, "0");
+            document.getElementById("cd-seconds").textContent = String(seconds).padStart(2, "0");
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* =================================================================
+           6. ADICIONAR AO CALENDÁRIO (.ICS)
+           ================================================================= */
+        function downloadCalendarICS() {
+            const icsContent = [
+                "BEGIN:VCALENDAR",
+                "VERSION:2.0",
+                "PRODID:-//Bruno e Kayllane//Convite Casamento//PT",
+                "BEGIN:VEVENT",
+                "DTSTART:20270703T180000Z",
+                "DTEND:20270704T020000Z",
+                "SUMMARY:Casamento Bruno & Kayllane",
+                "DESCRIPTION:Recepção inicia às 15h00 no Espaço Villa Mariah.",
+                "LOCATION:Espaço Villa Mariah - Estrada Abias da Silva, 49, Itaquaciara, Itapecerica da Serra - SP, 06874-260",
+                "END:VEVENT",
+                "END:VCALENDAR"
+            ].join("\r\n");
+
+            const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", "Casamento_Bruno_e_Kayllane.ics");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Evento salvo para sua agenda!");
+        }
+
+        /* =================================================================
+           7. GERADOR OFICIAL DE PIX BR CODE (EMVCo + CRC16-CCITT)
+           ================================================================= */
+        function crc16CCITT(payload) {
+            let crc = 0xFFFF;
+            for (let i = 0; i < payload.length; i++) {
+                crc ^= payload.charCodeAt(i) << 8;
+                for (let j = 0; j < 8; j++) {
+                    if ((crc & 0x8000) !== 0) {
+                        crc = ((crc << 1) ^ 0x1021) & 0xFFFF;
+                    } else {
+                        crc = (crc << 1) & 0xFFFF;
+                    }
+                }
+            }
+            return crc.toString(16).toUpperCase().padStart(4, "0");
+        }
+
+        function formatEMVField(id, value) {
+            const len = String(value.length).padStart(2, "0");
+            return `${id}${len}${value}`;
+        }
+
+        function generatePixPayload(amount) {
+            const formattedAmount = Number(amount).toFixed(2);
+            const gui = formatEMVField("00", "br.gov.bcb.pix");
+            const key = formatEMVField("01", WEDDING_CONFIG.pixKey);
+            const merchantAccountInfo = formatEMVField("26", gui + key);
+
+            const payloadNoCRC =
+                formatEMVField("00", "01") + // Payload Format Indicator
+                merchantAccountInfo +
+                formatEMVField("52", "0000") + // Merchant Category Code
+                formatEMVField("53", "986") +  // Currency BRL (986)
+                formatEMVField("54", formattedAmount) +
+                formatEMVField("58", "BR") +
+                formatEMVField("59", WEDDING_CONFIG.pixMerchantName.substring(0, 25)) +
+                formatEMVField("60", WEDDING_CONFIG.pixMerchantCity.substring(0, 15)) +
+                formatEMVField("62", formatEMVField("05", "CASAMENTOBK")) +
+                "6304";
+
+            const crc = crc16CCITT(payloadNoCRC);
+            return payloadNoCRC + crc;
+        }
+
+        /* =================================================================
+           8. VITRINE DE PRESENTES & MODAL PIX
+           ================================================================= */
+        let selectedGift = null;
+        let currentPixAmount = 0;
+
+        function formatCurrencyBRL(value) {
+            return Number(value).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+        }
+
+        function renderGiftsGrid(filterCategory = "todos") {
+            const grid = document.getElementById("gifts-grid");
+            const filtered = filterCategory === "todos"
+                ? GIFTS_CATALOG
+                : GIFTS_CATALOG.filter(g => g.category === filterCategory);
+
+            grid.innerHTML = filtered.map(gift => `
+                <div class="bg-[#F8F8F8] border border-neutral-200 rounded-2xl p-6 flex flex-col justify-between hover:border-black transition-all duration-300 group">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-2xl">${gift.icon}</span>
+                            <span class="text-[10px] uppercase tracking-[0.2em] px-3 py-1 bg-white border border-neutral-200 rounded-full text-neutral-600">
+                                ${gift.categoryLabel}
+                            </span>
+                        </div>
+                        <h3 class="font-serif text-2xl text-[#0A0A0A] leading-snug group-hover:underline">
+                            ${gift.title}
+                        </h3>
+                        <p class="text-xs text-neutral-500 mt-2 leading-relaxed font-light">
+                            ${gift.description}
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-5 border-t border-neutral-200/80">
+                        <p class="font-serif text-2xl font-semibold text-[#0A0A0A] mb-3">
+                            ${gift.isCustom ? "Você escolhe" : formatCurrencyBRL(gift.price)}
+                        </p>
+                        <button onclick="openPixModal(${gift.id})" class="w-full py-3 bg-[#0A0A0A] text-white text-[11px] uppercase tracking-[0.2em] rounded-full hover:bg-neutral-800 transition-colors">
+                            Presentear via Pix
+                        </button>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function filterGifts(category, btnElement) {
+            document.querySelectorAll(".gift-filter-btn").forEach(btn => {
+                btn.classList.remove("bg-[#0A0A0A]", "text-white");
+                btn.classList.add("bg-neutral-100", "text-neutral-700");
+            });
+            btnElement.classList.remove("bg-neutral-100", "text-neutral-700");
+            btnElement.classList.add("bg-[#0A0A0A]", "text-white");
+            renderGiftsGrid(category);
+        }
+
+        function openPixModal(giftId) {
+            selectedGift = GIFTS_CATALOG.find(g => g.id === giftId);
+            if (!selectedGift) return;
+
+            document.getElementById("pix-gift-title").textContent = selectedGift.title;
+            const customBox = document.getElementById("pix-custom-amount-box");
+            const priceLabel = document.getElementById("pix-gift-price");
+
+            if (selectedGift.isCustom) {
+                customBox.classList.remove("hidden");
+                const val = parseFloat(document.getElementById("pix-custom-input").value) || 150;
+                currentPixAmount = val;
+                priceLabel.textContent = formatCurrencyBRL(val);
+            } else {
+                customBox.classList.add("hidden");
+                currentPixAmount = selectedGift.price;
+                priceLabel.textContent = formatCurrencyBRL(selectedGift.price);
+            }
+
+            renderPixQRCode(currentPixAmount);
+            document.getElementById("pix-modal").classList.remove("hidden");
+        }
+
+        function updateCustomPixAmount() {
+            const val = parseFloat(document.getElementById("pix-custom-input").value);
+            if (val && val > 0) {
+                currentPixAmount = val;
+                document.getElementById("pix-gift-price").textContent = formatCurrencyBRL(val);
+                renderPixQRCode(val);
+            }
+        }
+
+        function renderPixQRCode(amount) {
+            const payload = generatePixPayload(amount);
+            document.getElementById("pix-copy-paste-code").value = payload;
+
+            const container = document.getElementById("qrcode-container");
+            container.innerHTML = "";
+            new QRCode(container, {
+                text: payload,
+                width: 175,
+                height: 175,
+                colorDark: "#0A0A0A",
+                colorLight: "#FFFFFF",
+                correctLevel: QRCode.CorrectLevel.M
+            });
+        }
+
+        function copyPixCode() {
+            const input = document.getElementById("pix-copy-paste-code");
+            input.select();
+            input.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            showToast("Código Pix Copia e Cola copiado!");
+        }
+
+        function confirmGiftNotification() {
+            const sender = document.getElementById("pix-sender-name").value.trim() || "Convidado Anônimo";
+            const note = document.getElementById("pix-sender-note").value.trim() || "Felicidades ao casal!";
+
+            const gifts = loadReceivedGifts();
+            gifts.unshift({
+                id: Date.now(),
+                giftTitle: selectedGift.title,
+                amount: currentPixAmount,
+                senderName: sender,
+                note: note,
+                date: new Date().toLocaleDateString("pt-BR")
+            });
+            saveReceivedGifts(gifts);
+
+            document.getElementById("pix-sender-name").value = "";
+            document.getElementById("pix-sender-note").value = "";
+            closePixModal();
+            showToast("Obrigado pelo carinho! Presente registrado.");
+        }
+
+        function closePixModal() {
+            document.getElementById("pix-modal").classList.add("hidden");
+        }
+
+        /* =================================================================
+           9. FORMULÁRIO DE CONFIRMAÇÃO DE PRESENÇA (RSVP)
+           ================================================================= */
+        function toggleCompanionsField(isAttending) {
+            const container = document.getElementById("companions-container");
+            if (isAttending) {
+                container.classList.remove("hidden");
+            } else {
+                container.classList.add("hidden");
+            }
+        }
+
+        function handleRSVPSubmit(e) {
+            e.preventDefault();
+
+            const name = document.getElementById("rsvp-name").value.trim();
+            const phone = document.getElementById("rsvp-phone").value.trim();
+            const status = document.querySelector('input[name="rsvp-status"]:checked').value;
+            const companionsCount = status === "Confirmado" ? parseInt(document.getElementById("rsvp-companions-count").value, 10) : 0;
+            const companionsNames = status === "Confirmado" ? document.getElementById("rsvp-companions-names").value.trim() : "";
+            const message = document.getElementById("rsvp-message").value.trim();
+
+            const guests = loadGuests();
+            // Verifica se o convidado já estava na pré-lista da noiva (comparação flexível)
+            const existingIndex = guests.findIndex(g => g.name.toLowerCase().includes(name.toLowerCase()) || name.toLowerCase().includes(g.name.toLowerCase()));
+
+            const guestRecord = {
+                id: existingIndex >= 0 ? guests[existingIndex].id : "g_" + Date.now(),
+                name,
+                phone,
+                status,
+                companionsCount,
+                companionsNames,
+                message,
+                group: existingIndex >= 0 ? guests[existingIndex].group : "Site RSVP",
+                updatedAt: new Date().toLocaleDateString("pt-BR")
+            };
+
+            if (existingIndex >= 0) {
+                guests[existingIndex] = guestRecord;
+            } else {
+                guests.unshift(guestRecord);
+            }
+
+            saveGuests(guests);
+
+            // Sincronização opcional com Google Sheets caso o usuário configure a URL
+            if (WEDDING_CONFIG.googleSheetsWebhookURL) {
+                fetch(WEDDING_CONFIG.googleSheetsWebhookURL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(guestRecord)
+                }).catch(() => {});
+            }
+
+            document.getElementById("rsvp-form").classList.add("hidden");
+            const successBox = document.getElementById("rsvp-success-box");
+            const successText = document.getElementById("rsvp-success-text");
+
+            successText.textContent = status === "Confirmado"
+                ? `Que alegria, ${name}! Sua presença${companionsCount > 0 ? ` (+ ${companionsCount} acompanhante(s))` : ""} está confirmada para o dia 03/07/2027.`
+                : `Agradecemos por nos avisar, ${name}. Sentiremos sua falta neste dia especial!`;
+
+            successBox.classList.remove("hidden");
+            showToast("Confirmação enviada com sucesso!");
+        }
+
+        function resetRSVPForm() {
+            document.getElementById("rsvp-form").reset();
+            toggleCompanionsField(true);
+            document.getElementById("rsvp-success-box").classList.add("hidden");
+            document.getElementById("rsvp-form").classList.remove("hidden");
+        }
+
+        /* =================================================================
+           10. PAINEL ADMINISTRATIVO DA NOIVA (LOGIN, CONTADORES & EXPORTAÇÃO)
+           ================================================================= */
+        function openBrideModal() {
+            document.getElementById("bride-modal").classList.remove("hidden");
+        }
+
+        function closeBrideModal() {
+            document.getElementById("bride-modal").classList.add("hidden");
+        }
+
+        function handleBrideLogin(e) {
+            e.preventDefault();
+            const pass = document.getElementById("bride-password").value;
+            if (pass === WEDDING_CONFIG.bridePassword) {
+                document.getElementById("bride-login-view").classList.add("hidden");
+                document.getElementById("bride-dashboard-view").classList.remove("hidden");
+                refreshBrideDashboard();
+            } else {
+                document.getElementById("bride-login-error").classList.remove("hidden");
+            }
+        }
+
+        function refreshBrideDashboard() {
+            const guests = loadGuests();
+            const gifts = loadReceivedGifts();
+
+            let confirmedPeople = 0;
+            let pendingCount = 0;
+            let declinedCount = 0;
+
+            guests.forEach(g => {
+                if (g.status === "Confirmado") {
+                    confirmedPeople += 1 + (Number(g.companionsCount) || 0);
+                } else if (g.status === "Pendente") {
+                    pendingCount += 1;
+                } else if (g.status === "Recusado") {
+                    declinedCount += 1;
+                }
+            });
+
+            const totalGiftsAmount = gifts.reduce((acc, item) => acc + Number(item.amount || 0), 0);
+
+            document.getElementById("stat-confirmed").textContent = confirmedPeople;
+            document.getElementById("stat-pending").textContent = pendingCount;
+            document.getElementById("stat-declined").textContent = declinedCount;
+            document.getElementById("stat-gifts-total").textContent = formatCurrencyBRL(totalGiftsAmount);
+
+            renderBrideGuestsTable("todos");
+            renderBrideGiftsList();
+        }
+
+        function renderBrideGuestsTable(statusFilter = "todos") {
+            const guests = loadGuests();
+            const filtered = statusFilter === "todos" ? guests : guests.filter(g => g.status === statusFilter);
+            const tbody = document.getElementById("bride-guests-tbody");
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-neutral-400">Nenhum convidado nesta categoria.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(g => {
+                let badgeClass = "bg-amber-100 text-amber-800";
+                if (g.status === "Confirmado") badgeClass = "bg-emerald-100 text-emerald-800";
+                if (g.status === "Recusado") badgeClass = "bg-neutral-200 text-neutral-600";
+
+                return `
+                    <tr class="hover:bg-neutral-50">
+                        <td class="p-3.5 font-medium text-neutral-900">
+                            ${g.name}
+                            <span class="block text-[10px] text-neutral-400">${g.group || ""}</span>
+                        </td>
+                        <td class="p-3.5">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] uppercase font-medium ${badgeClass}">
+                                ${g.status}
+                            </span>
+                        </td>
+                        <td class="p-3.5 text-neutral-600">
+                            ${g.companionsCount > 0 ? `+${g.companionsCount} (${g.companionsNames || "Não informado"})` : "0"}
+                        </td>
+                        <td class="p-3.5 text-neutral-600 max-w-[180px] truncate" title="${g.message || ""}">
+                            ${g.phone || "-"}
+                            ${g.message ? `<span class="block italic text-[11px] text-neutral-500">"${g.message}"</span>` : ""}
+                        </td>
+                        <td class="p-3.5 text-right">
+                            <button onclick="deleteGuest('${g.id}')" class="text-neutral-400 hover:text-red-600 text-xs" title="Remover">
+                                Excluir
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join("");
+        }
+
+        function addExpectedGuest(e) {
+            e.preventDefault();
+            const nameInput = document.getElementById("new-expected-name");
+            const groupInput = document.getElementById("new-expected-group");
+
+            const guests = loadGuests();
+            guests.unshift({
+                id: "g_" + Date.now(),
+                name: nameInput.value.trim(),
+                phone: "",
+                status: "Pendente",
+                companionsCount: 0,
+                companionsNames: "",
+                message: "",
+                group: groupInput.value.trim() || "Lista Prévia"
+            });
+
+            saveGuests(guests);
+            nameInput.value = "";
+            groupInput.value = "";
+            refreshBrideDashboard();
+            showToast("Convidado adicionado na lista de pendentes!");
+        }
+
+        function deleteGuest(id) {
+            const guests = loadGuests().filter(g => g.id !== id);
+            saveGuests(guests);
+            refreshBrideDashboard();
+            showToast("Registro removido.");
+        }
+
+        function renderBrideGiftsList() {
+            const gifts = loadReceivedGifts();
+            const container = document.getElementById("bride-gifts-list");
+
+            if (gifts.length === 0) {
+                container.innerHTML = `<p class="text-center text-xs text-neutral-500 py-8">Nenhum presente via Pix registrado ainda.</p>`;
+                return;
+            }
+
+            container.innerHTML = gifts.map(item => `
+                <div class="p-4 rounded-2xl border border-neutral-200 bg-[#F8F8F8] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                        <p class="font-medium text-sm text-[#0A0A0A]">${item.senderName} <span class="text-xs font-normal text-neutral-500">• ${item.date}</span></p>
+                        <p class="text-xs text-neutral-700 mt-0.5">Presente: <strong>${item.giftTitle}</strong></p>
+                        <p class="text-xs italic text-neutral-500 mt-1">"${item.note}"</p>
+                    </div>
+                    <div class="font-serif text-xl font-semibold text-emerald-800">
+                        ${formatCurrencyBRL(item.amount)}
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function switchBrideTab(tabName, btn) {
+            document.querySelectorAll(".bride-tab-btn").forEach(b => {
+                b.classList.remove("border-black", "font-semibold", "text-black");
+                b.classList.add("border-transparent", "text-neutral-500");
+            });
+            btn.classList.add("border-black", "font-semibold", "text-black");
+            btn.classList.remove("border-transparent", "text-neutral-500");
+
+            if (tabName === "guests") {
+                document.getElementById("tab-guests-content").classList.remove("hidden");
+                document.getElementById("tab-gifts-content").classList.add("hidden");
+            } else {
+                document.getElementById("tab-guests-content").classList.add("hidden");
+                document.getElementById("tab-gifts-content").classList.remove("hidden");
+            }
+        }
+
+        function exportGuestsCSV() {
+            const guests = loadGuests();
+            const headers = ["Nome", "Status", "Acompanhantes", "Nomes Acompanhantes", "Telefone", "Grupo", "Mensagem"];
+            const rows = guests.map(g => [
+                `"${g.name}"`,
+                `"${g.status}"`,
+                g.companionsCount,
+                `"${g.companionsNames || ""}"`,
+                `"${g.phone || ""}"`,
+                `"${g.group || ""}"`,
+                `"${(g.message || "").replace(/"/g, "'")}"`
+            ]);
+
+            const csvContent = "data:text/csv;charset=utf-8,\uFEFF" + [headers.join(";"), ...rows.map(r => r.join(";"))].join("\n");
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Convidados_Bruno_e_Kayllane.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showToast("Planilha CSV exportada!");
+        }
+
+        /* =================================================================
+           11. UTILITÁRIOS DE INTERFACE (MENU MOBILE, TOAST & SCROLL REVEAL)
+           ================================================================= */
+        function toggleMobileMenu() {
+            document.getElementById("mobile-menu").classList.toggle("hidden");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast-notification");
+            toast.textContent = msg;
+            toast.classList.remove("opacity-0", "pointer-events-none");
+            setTimeout(() => {
+                toast.classList.add("opacity-0", "pointer-events-none");
+            }, 3200);
+        }
+
+        function triggerRevealAnimations() {
+            const reveals = document.querySelectorAll(".reveal");
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, { threshold: 0.12 });
+
+            reveals.forEach(el => observer.observe(el));
+        }
+
+        // Inicialização ao carregar a janela
+        window.onload = function() {
+            renderGiftsGrid("todos");
+            triggerRevealAnimations();
+        };
+    </script>
+</body>
+</html>
